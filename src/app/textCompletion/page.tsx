@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 import './page.css';
 
 enum AIModel {
@@ -59,21 +59,25 @@ const ChatInterface: React.FC = () => {
         {/* Previous chats */}
       </div>
       <div className="chat-window">
-        {chatHistory.map((message, index) => (
-          <div key={index} className={message.startsWith('You: ') ? 'message' : 'response-message'}>
-            {message}
-          </div>
-        ))}
+        {chatHistory.map((message, index) => {
+          if (message.startsWith('You: ')) {
+            return <InputMessage key={index} message={message} />;
+          } else {
+            return <ResponseMessage key={index} message={message} />;
+          }
+        })}
 
-        <input
-          type="text"
-          value={inputText}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Type your message..."
-          className="input-bar"
-        />
-        <button onClick={handleSendClick} className="send-button">Send</button>
+        <div className="input-container">
+          <input
+            type="text"
+            value={inputText}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Type your message..."
+            className="input-bar"
+          />
+          <button onClick={handleSendClick} className="send-button">Send</button>
+        </div>
       </div>
       <div className="ai-model-dropdown">
         <select value={selectedModel} onChange={(e) => setSelectedModel(e.target.value as AIModel)}>
@@ -82,6 +86,26 @@ const ChatInterface: React.FC = () => {
           ))}
         </select>
       </div>
+    </div>
+  );
+};
+
+interface MessageProps {
+  message: string;
+}
+
+const InputMessage: React.FC<MessageProps> = ({ message }) => {
+  return (
+    <div className="message user-message">
+      {message}
+    </div>
+  );
+};
+
+const ResponseMessage: React.FC<MessageProps> = ({ message }) => {
+  return (
+    <div className="message response-message">
+      {message}
     </div>
   );
 };

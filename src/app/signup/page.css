@@ -1,0 +1,82 @@
+body {
+    background: linear-gradient(to right, rgba(4, 6, 41, 0.907), rgba(57, 18, 84, 0.8));
+    background-size: cover;
+    background-blend-mode: overlay;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.login-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #f7f7f7;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+  }
+  
+  input[type='email'],
+  input[type='password'],
+  input[type='username'] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  input[type='email']:focus,
+  input[type='password']:focus,
+  input[type='username']:focus {
+    border-color: #007bff;
+  }
+
+  input[type='email']::placeholder,
+  input[type='password']::placeholder,
+  input[type='username']::placeholder {
+  color: #999;
+  font-size: 14px;
+}
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2e0264;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #200246;
+  }
+  
+  .error-message {
+    color: #ff6347;
+    margin-top: 10px;
+  }
+  
