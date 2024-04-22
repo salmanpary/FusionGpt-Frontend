@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import axios from 'axios';
 import './page.css';
 
 const LoginPage: React.FC = () => {
@@ -14,8 +15,20 @@ const LoginPage: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
-    console.log('Logging in with:', email, password);
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/auth/login', {
+        email: email,
+        password: password
+      });
+      console.log(response.data.token);
+      localStorage.setItem("token", response.data.token)
+      // Optionally, redirect to another page or show a success message to the user
+    } catch (error) {
+      // Handle error
+      console.error('Error signing up:', error);
+      // Optionally, show an error message to the user
+    }
   };
 
   return (
