@@ -14,6 +14,7 @@ function ImageComponent() {
       });
       const data = response.data;
       setImages(data.images);
+      console.log(response)
     } catch (error) {
       console.error('Error fetching images:', error);
     }
