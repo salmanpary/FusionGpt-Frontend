@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './page.css';
+import { useRouter } from 'next/navigation'
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -15,14 +16,21 @@ const LoginPage: React.FC = () => {
     setPassword(e.target.value);
   };
 
+  const router = useRouter()
+
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:5000/auth/login', {
         email: email,
         password: password
       });
-      console.log(response.data.token);
-      localStorage.setItem("token", response.data.token)
+      if(response.data.token){
+        console.log(response.data.token);
+        localStorage.setItem("token", response.data.token)
+        router.push('/home')
+      }
+  
+
       // Optionally, redirect to another page or show a success message to the user
     } catch (error) {
       // Handle error
@@ -35,7 +43,6 @@ const LoginPage: React.FC = () => {
     <div className="login-container">
       <h2>Login</h2>
       <div className="form-group">
-        {/* <label>Email:</label> */}
         <input
           type="email"
           value={email}
@@ -44,7 +51,6 @@ const LoginPage: React.FC = () => {
         />
       </div>
       <div className="form-group">
-        {/* <label>Password:</label> */}
         <input
           type="password"
           value={password}
