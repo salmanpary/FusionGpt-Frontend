@@ -42,8 +42,8 @@ function ImageComponent() {
           />
         ))} */}
 
-        <img src='https://fastly.picsum.photos/id/562/200/300.jpg?hmac=hpXw5M2jimIlA8mbmOszsyQ8e8ZBdyiCeb9T-8STe44'></img>
-        <img src='https://fastly.picsum.photos/id/562/200/300.jpg?hmac=hpXw5M2jimIlA8mbmOszsyQ8e8ZBdyiCeb9T-8STe44'></img>
+        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTJn-NgLeXRv3Dd4jlYmJQDPhQEXubOhH4fCfheQjzfQ&s'></img>
+        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTJn-NgLeXRv3Dd4jlYmJQDPhQEXubOhH4fCfheQjzfQ&s'></img>
       </div>
       <div className='input_div'>
         <input
