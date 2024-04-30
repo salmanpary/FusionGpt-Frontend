@@ -40,6 +40,7 @@ const SignupPage: React.FC = () => {
   };
 
   return (
+    <div className='body'>
     <div className="login-container">
       <h2>Signup</h2>
       <div className="form-group">
@@ -70,6 +71,7 @@ const SignupPage: React.FC = () => {
         />
       </div>
       <button onClick={handleSignup}>Signup</button>
+    </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-body {
+.body {
     background: linear-gradient(to right, rgba(4, 6, 41, 0.907), rgba(57, 18, 84, 0.8));
     background-size: cover;
     background-blend-mode: overlay;

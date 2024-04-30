@@ -1,38 +1,44 @@
 "use client"
 import Image from "next/image";
 import Link from 'next/link';
+import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import './page.css'
 
 export default function Home() {
-  return (
-    <main className="flex min-h-[560px] flex-col items-center justify-between p-24">
-      {/* <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div> */}
+  const [username, setUsername] = useState('');
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+          const response = await axios.get('http://localhost:5000/getuser', {
+            headers: {
+              Authorization: `${token}`
+            }
+          });
+
+          setUsername(response.data.user_name);
+          console.log(response)
+        }
+      } catch (error) {
+        console.error('Error fetching username:', error);
+      }
+    };
+
+    fetchUsername();
+  }, []);
+
+  return (
+    <main className="main-container">
+      <div className="welcome-container">
+        {username && <p className="welcome-message">Welcome, {username}!</p>}
+      </div>
+      <div className="logo-container">
         <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] "
+          className="logo-image"
           src="/logo.png"
           alt="FusionGPT Logo"
           width={220}
@@ -41,66 +47,27 @@ export default function Home() {
         />
       </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <Link
-          href="/textCompletion"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Text Completion Models{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Generate text by giving a prompt
-          </p>
+      <div className="links-container">
+        <Link href="/textCompletion" className="link-item">
+          <h2 className="link-title">Text Completion Models -&gt;</h2>
+          <p className="link-description">Generate text by giving a prompt</p>
         </Link>
 
-        <Link
-          href="/textSummary"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Text Summarization{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Condense text to key points efficiently
-          </p>
+        <Link href="/textSummary" className="link-item">
+          <h2 className="link-title">Text Summarization -&gt;</h2>
+          <p className="link-description">Condense text to key points efficiently</p>
         </Link>
 
-        <Link
-          href="/getimage"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Text to Image Models{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Generate images from textual descriptions
-          </p>
+        <Link href="/textImage" className="link-item">
+          <h2 className="link-title">Text to Image Models -&gt;</h2>
+          <p className="link-description">Generate images from textual descriptions</p>
         </Link>
 
-        <Link
-          href="/ktuText"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            KTU Based Model{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Get KTU syllabus oriented answers
-          </p>
+        <Link href="/ktuText" className="link-item">
+          <h2 className="link-title">KTU Based Model -&gt;</h2>
+          <p className="link-description">Get KTU syllabus oriented answers</p>
         </Link>
+
       </div>
     </main>
   );

@@ -40,6 +40,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
+    <div className='body'>
     <div className="login-container">
       <h2>Login</h2>
       <div className="form-group">
@@ -59,6 +60,7 @@ const LoginPage: React.FC = () => {
         />
       </div>
       <button onClick={handleLogin}>Login</button>
+    </div>
     </div>
   );
 };
