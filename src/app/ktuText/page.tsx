@@ -1,7 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Navbar } from '../../components/Navbar';
 import { v4 as uuidv4 } from "uuid";
+import './page.css';
 
 const Page = () => {
   const [pdfFiles, setPdfFiles] = useState([]);
@@ -72,7 +74,9 @@ const Page = () => {
   
 
   return (
-    <div className="p-10" style={{ backgroundColor: "black", color: "white" }}>
+    <>
+    <Navbar/>
+    <div className="p-10">
       <h1>KTU GPT</h1>
       <div>Chat with your textbooks with KTU GPT</div>
       <div className="p-10 flex">
@@ -169,6 +173,7 @@ const Page = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

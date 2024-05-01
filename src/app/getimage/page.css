@@ -5,29 +5,21 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Adjust height as needed */
+    margin-top: 30px;
   }
   
   .image_div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap:30px;
     margin-bottom: 20px;
   }
   
-  .inner_image_div {
-    width: 200px; /* Adjust image width as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin: 5px;
-  }
   
   .input_div {
     display: flex;
     align-items: center;
-  }
-
-  img {
-    padding: 20px;
   }
   
   .input_div input {
@@ -49,6 +41,7 @@
   .input_div button:hover {
     background-color: #0056b3; /* Adjust hover color as needed */
   }
+  
   
 
 /* .container_div{

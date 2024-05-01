@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './page.css';
-
+// import { Navbar } from '../../components/Navbar';
 enum AIModel {
   bart = "bart"
 }
@@ -12,17 +12,13 @@ const ChatInterface: React.FC = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [selectedModel, setSelectedModel] = useState<AIModel>(AIModel.bart);
   const [authToken, setAuthToken] = useState<string>('');
-
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log("Token from local storage:", token);
     setAuthToken(token);
     fetchChatHistory(token);
   }, []);
-
-  useEffect(() => {
-    fetchChatHistory(authToken)
-  }, [selectedModel])
 
   const fetchChatHistory = async (authToken: string | null) => {
     console.log("Auth token:", authToken);
@@ -62,6 +58,7 @@ const ChatInterface: React.FC = () => {
   };
 
   return (
+    
     <div className="chat-interface">
       <div className="sidebar">
         <button onClick={handleNewChat} className="new-chat-button">New Chat</button>
@@ -95,6 +92,7 @@ const ChatInterface: React.FC = () => {
         </select>
       </div> */}
     </div>
+  
   );
 };
 

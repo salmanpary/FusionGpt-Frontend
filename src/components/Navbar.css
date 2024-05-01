@@ -1,0 +1,29 @@
+.logo-name{
+    font-weight: bold;
+    color: #ffffff;
+    font-size: larger;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo-name {
+    /* Add any styling for the logo */
+  }
+  
+  .navbar-items {
+    /* Add any styling for the navbar items */
+    display: flex;
+  }
+  
+  /* If you want to style the links */
+  .navbar-items a {
+    text-decoration: none; /* Remove underline from links */
+    color: white; /* Set text color */
+    margin-left: 10px; /* Add space between links */
+  }
+  

@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './page.css';
+import { useRouter } from 'next/navigation'
 
 const SignupPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -19,17 +21,20 @@ const SignupPage: React.FC = () => {
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+  const router = useRouter()
 
 
   const handleSignup = async () => {
     try {
+      setLoading(true);
       const response = await axios.post('http://localhost:5000/auth/signup', {
         username: username,
         email: email,
         password: password
       });
-
+      setLoading(false);
       // Handle successful response
+      router.push('/login')
       console.log(response.data.message);
       // Optionally, redirect to another page or show a success message to the user
     } catch (error) {
@@ -38,7 +43,6 @@ const SignupPage: React.FC = () => {
       // Optionally, show an error message to the user
     }
   };
-
   return (
     <div className='body'>
     <div className="login-container">
@@ -71,6 +75,9 @@ const SignupPage: React.FC = () => {
         />
       </div>
       <button onClick={handleSignup}>Signup</button>
+      {
+        loading && <div>Signing up...</div>
+      }
     </div>
     </div>
   );

@@ -2,21 +2,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px;
+    padding: 0px;
   }
-  
+
   .welcome-container {
-    align-self: flex-end;
+    align-self: flex-start;
+    padding:40px;
     margin-right: 20px;
   }
   
   .welcome-message {
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: #efe7e7;
   }
   
   .logo-container {
+    padding: 40px;
     margin-bottom: 40px;
   }
   
@@ -39,14 +41,14 @@
     align-items: center;
     transition: all 0.3s ease;
   }
-  
   .link-item:hover {
     background-color: #f0f0f0;
+
   }
   
   .link-title {
     font-size: 20px;
-    color: #333;
+    color: #ffffff;
     margin-bottom: 10px;
   }
   
@@ -56,3 +58,6 @@
     text-align: center;
   }
   
+  .navbar-space{
+    width: 100%;
+  }
