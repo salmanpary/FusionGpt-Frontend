@@ -60,6 +60,7 @@ const LoginPage: React.FC = () => {
         />
       </div>
       <button onClick={handleLogin}>Login</button>
+      <div>If you are a new user. <a href='./signup'>Click here</a></div>
     </div>
     </div>
   );
