@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './page.css';
-// import { Navbar } from '../../components/Navbar';
+import { Navbar } from '../../components/Navbar';
+
 enum AIModel {
   bart = "bart"
 }
@@ -58,10 +59,11 @@ const ChatInterface: React.FC = () => {
   };
 
   return (
-    
+    <>
+    <Navbar/>
     <div className="chat-interface">
       <div className="sidebar">
-        <button onClick={handleNewChat} className="new-chat-button">New Chat</button>
+        <button onClick={handleNewChat} className="new-chat-button">Clear Chat</button>
 
       </div>
       <div className="chat-window">
@@ -84,15 +86,9 @@ const ChatInterface: React.FC = () => {
           <button onClick={handleSendClick} className="send-button">Send</button>
         </div>
       </div>
-      {/* <div className="ai-model-dropdown">
-        <select value={selectedModel} onChange={(e) => setSelectedModel(e.target.value as AIModel)}>
-          {Object.values(AIModel).map(model => (
-            <option key={model} value={model}>{model}</option>
-          ))}
-        </select>
-      </div> */}
+
     </div>
-  
+    </>
   );
 };
 

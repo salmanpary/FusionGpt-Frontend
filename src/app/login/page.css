@@ -13,7 +13,7 @@
 .login-container {
     width: 400px;
     margin: 140px auto;
-    padding: 40px;
+    padding: 40px 40px 20px 40px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.15);
@@ -78,4 +78,18 @@
     color: #ff6347;
     margin-top: 10px;
   }
+
+  .click {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    color: white;
+    margin-top: 8px;
+    font-size: small;
+
+  }
   
+  .click a{
+    color: #1884f8;
+    text-decoration: underline;
+  }

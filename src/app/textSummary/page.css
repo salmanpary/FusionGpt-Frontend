@@ -1,18 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --color-assistant-bg: #3f4042;
+  --color-assistant-text: #e1e6ed;
+}
 .chat-interface {
+  font-family: "Poppins", sans-serif;
     display: flex;
     height: 100vh;
   }
   
   .sidebar {
     width: 250px;
-    background-color: #232323;
+    background-color: #171717;
     color: white;
   }
   
   .chat-window {
     flex: 1;
     margin-bottom: 80px;
-    background-color: #f0f0f0;
+    background-color: #000000;
     padding: 20px;
     overflow-y: auto;
     display: flex;
@@ -23,7 +30,7 @@
     width: calc(100% - 460px);
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     color: black;
     position: fixed;
     bottom: 16px;
@@ -43,7 +50,7 @@
     border-radius: 5px;
     cursor: pointer;
     position: fixed;
-    bottom: 21px;
+    bottom: 16px;
     right: 120px;
   }
   
@@ -60,43 +67,28 @@
     border-radius: 6px;
   }
   
-  .user-message {
-    align-self: flex-end; /* User message on the right side */
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    max-width: 70%;
-  }
-  
-  .response-message {
-    align-self: flex-start; /* Assistant message on the left side */
-    background-color: #555;
-    color: white;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    max-width: 70%;
-  }
   
   .new-chat-button {
-    background-color: black;
+    background-color: #042c4cc9;
     padding: 10px 40px;
     border-radius: 5px;
     position: fixed;
     left: 45px;
-    top: 40px;
+    top: 80px;
   }
   
-  /* Additional styles for messages rendered from chatHistory */
+ 
   .chat-message {
-    align-self: flex-end; /* Messages from chatHistory on the right side */
-    background-color: #4CAF50;
     color: white;
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
     max-width: 70%;
+    background: var(--color-assistant-bg);
+    color: var(--color-assistant-text);
+  }
+
+  .chat-history{
+    margin-left: 140px;
   }
   

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
   --color-white: #fff;
   --color-main: #2c2d30;
@@ -34,11 +36,13 @@ body {
   font-family: system-ui, sans-serif;
   width: 100%;
   height: 100%; */
+  font-family: "Poppins", sans-serif;
+  overflow-y: hidden;
 }
 
 .chat-interface {
   display: flex;
-  /* height: 100vh; */
+  height: 100vh;
 }
 
 .sidebar {
@@ -55,15 +59,24 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
+
+.view.chat-window::-webkit-scrollbar {
+  display: none;
+}
+
 .view.chat-window {
-  /* flex: 1;
-  margin-bottom: 80px;
-  background-color: var(--color-main);
-  padding: 20px; */
+  flex: 1;
+  margin-bottom: 20px;
+  /* background-color: var(--color-main); */
+  padding: 20px;
   overflow-y: auto;
   overflow-x: auto;
-  /* display: none; */
-  /* flex-direction: column-reverse;  */
+
+}
+
+
+.view.chat-window::-webkit-scrollbar-thumb {
+  display: none; 
 }
 
 
@@ -118,7 +131,7 @@ button .selected{
 .model-selector {
   position: relative;
   border-radius: 11px;
-  background: var(--color-secondary);
+  background: #03294993;
   display: flex;
   padding: 6px;
   gap: 4px;
@@ -136,16 +149,17 @@ button .selected{
   font-weight: bold;
   opacity: 0.5;
   padding: 6px;
+  /* transition: ease-in-out 0.5; */
 }
 
 .model-selector > button:hover {
-  background: none;
+  background: #09375c52;
   opacity: 1;
 }
 
 .model-selector > button.selected {
   border: 1px solid var(--color-user-menu-selected-border);
-  background: var(--color-user-menu-hover);
+  background: #999da129;
   opacity: 1;
 }
 
@@ -179,12 +193,14 @@ button .selected{
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 25px 60px 15px 260px;
+  padding: 25px 60px 20px 260px;
   border-bottom: 1px solid var(--color-border2);
   font-size: 0.95em;
 }
 
 #message-form {
+  position: relative;
+  bottom: 40px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -196,7 +212,7 @@ button .selected{
 }
 
 .message-wrapper {
-  position: relative;
+  /* position: relative; */
 }
 
 #message::placeholder {
@@ -211,7 +227,7 @@ button .selected{
   border: 1px solid var(--color-user-message-border);
   resize: none;
   padding: 17px 85px 17px 15px;
-  font-family: inherit;
+  font-family: "Poppins", sans-serif;
   font-size: 1em;
   color: var(--color-white);
   box-shadow: rgba(0,0,0,0.2) 0 0 45px;

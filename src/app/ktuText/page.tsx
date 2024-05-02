@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Navbar } from '../../components/Navbar';
@@ -8,9 +8,11 @@ import './page.css';
 const Page = () => {
   const [pdfFiles, setPdfFiles] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true); // State to track send button status
-  const [sessionId, setSessionId] = useState(""); // State to store session ID
-  const [currentMessage, setCurrentMessage] = useState(""); // State to store current message
+  const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
+  const [sessionId, setSessionId] = useState("");
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [processingPdf, setProcessingPdf] = useState(false);
+
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setPdfFiles([...pdfFiles, ...files]);
@@ -23,16 +25,15 @@ const Page = () => {
   };
 
   const handleSave = () => {
-    const sessionId = uuidv4(); // Generate a random session ID
-    const endpoint = `http://localhost:5000/save-documents`; // Endpoint URL
-  
+    const sessionId = uuidv4();
+    const endpoint = `http://localhost:5000/save-documents`;
     const formData = new FormData();
     pdfFiles.forEach((file) => {
       formData.append("files[]", file);
     });
-     setIsSendButtonDisabled(true); // Disable send button
-    // Append session ID to form data
-    setSessionId(sessionId); // Set session ID in state
+    setIsSendButtonDisabled(true);
+    setProcessingPdf(true); // Indicate processing PDF
+    setSessionId(sessionId);
     formData.append("sessionId", sessionId);
     axios.post(endpoint, formData, {
       headers: {
@@ -40,57 +41,47 @@ const Page = () => {
       },
     })
       .then((response) => {
-        setIsSendButtonDisabled(false); // Enable send button
+        setIsSendButtonDisabled(false);
+        setProcessingPdf(false); // PDF processed
       })
       .catch((error) => {
         console.error("Error saving documents:", error.message);
         alert("Failed to save documents");
       });
   };
-  
 
   const handleMessageSend = (message) => {
-    setMessages([...messages, { question: message, answer: '' }]); // Add user message to chat interface
-  
-    // Make a POST request to the server
-    const endpoint = 'http://localhost:5000/chat-with-ktu'; // Endpoint URL
+    setMessages([...messages, { question: message, answer: '' }]);
+    const endpoint = 'http://localhost:5000/chat-with-ktu';
     const data = {
-      session_id: sessionId, // Pass the session ID
-      query: message // Pass the user's message as the query
+      session_id: sessionId,
+      query: message
     };
-    setIsSendButtonDisabled(true); // Disable send button
+    setIsSendButtonDisabled(true);
+    setCurrentMessage('')
     axios.post(endpoint, data)
       .then((response) => {
         console.log("Response:", response.data);
-        const matches = response.data; // Assuming the response contains matches
-        setMessages([...messages, { question: message, answer:matches }]); // Update chat interface with the response
-        setIsSendButtonDisabled(false); // Enable send button
+        const matches = response.data;
+        setMessages([...messages, { question: message, answer: matches }]);
+        setIsSendButtonDisabled(false);
       })
       .catch((error) => {
         console.error("Error sending message:", error.message);
         alert("Failed to send message");
       });
   };
-  
 
   return (
     <>
-    <Navbar/>
-    <div className="p-10">
-      <h1>KTU GPT</h1>
-      <div>Chat with your textbooks with KTU GPT</div>
-      <div className="p-10 flex">
-        <div className="mr-10">
-        <div>
-            <h2 className="pb-4 text-xl">Upload PDFs</h2>
-            <input
-              type="file"
-              accept=".pdf"
-              multiple
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-            <label htmlFor="file-upload" className="bg-blue-500 px-4 py-2 rounded-md cursor-pointer text-white">
+      <Navbar />
+      <div className="container">
+        <h1 className="text-lg mb-2">KTU GPT</h1>
+        {/* <div className="text-center mb-6">Chat with your textbooks with KTU GPT</div> */}
+        <div className="upload-box flex flex-col items-center">
+          <div className="mb-4">
+            <h2 className="p-4">Upload PDFs</h2>
+            <label htmlFor="file-upload" className="button mb-4">
               Choose Files
             </label>
             <input
@@ -99,80 +90,76 @@ const Page = () => {
               accept=".pdf"
               multiple
               onChange={handleFileChange}
-              style={{ color: "white", opacity: 0, position: "absolute", zIndex: -1 }}
+              style={{ display: "none" }}
             />
           </div>
 
           {pdfFiles.length > 0 && (
-            <div className="mt-6">
-              <h3 className="text-lg">Uploaded PDFs</h3>
-              <ul className="mt-2">
+            <div className="mb-4">
+              <div className="flex items-center">
+              <ul className="">
+                <div className="flex items-center">
+                    <h3 className="mt-4 mb-4 ml-6">Uploaded PDFs</h3>
+                    <button className="ml-2 -mt-2" ><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,300,150">
+                      <g fill="#40c057" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none"><g transform="scale(10.66667,10.66667)"><path d="M11.707,15.707c-0.195,0.195 -0.451,0.293 -0.707,0.293c-0.256,0 -0.512,-0.098 -0.707,-0.293l-4,-4c-0.391,-0.391 -0.391,-1.023 0,-1.414c0.391,-0.391 1.023,-0.391 1.414,0l3.293,3.293l8.35,-8.35c-1.827,-1.985 -4.439,-3.236 -7.35,-3.236c-5.523,0 -10,4.477 -10,10c0,5.523 4.477,10 10,10c5.523,0 10,-4.477 10,-10c0,-1.885 -0.531,-3.642 -1.438,-5.148z"></path></g></g>
+                      </svg></button>
+                </div>
+
                 {pdfFiles.map((file, index) => (
-                  <li key={index} className="flex items-center py-2">
-                    <span className="text-white">{file.name}</span>
+                  <li key={index} className="file flex items-center py-2">
+                    <span className="filename">{file.name}</span>
                     <button
                       onClick={() => handleRemovePdf(index)}
-                      className="ml-4 bg-red-800 rounded-full px-2"
+                      id="remove-button"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4 text-white"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.293 5.293a1 1 0 0 1 1.414 1.414L10 11.414l3.293-3.293a1 1 0 1 1 1.414 1.414L11.414 12l3.293 3.293a1 1 0 1 1-1.414 1.414L10 13.414l-3.293 3.293a1 1 0 1 1-1.414-1.414L8.586 12 5.293 8.707a1 1 0 0 1 0-1.414z"
-                          clipRule="evenodd"
-                        />
+                      <svg xmlns="http://www.w3.org/2000/svg"  width="24" height="24" viewBox="0,0,300,150">
+                      <g fill="#fa5252" fill-rule="nonzero" stroke="none"  stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" ><g transform="scale(8.53333,8.53333)"><path d="M15,3c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12zM16.414,15c0,0 3.139,3.139 3.293,3.293c0.391,0.391 0.391,1.024 0,1.414c-0.391,0.391 -1.024,0.391 -1.414,0c-0.154,-0.153 -3.293,-3.293 -3.293,-3.293c0,0 -3.139,3.139 -3.293,3.293c-0.391,0.391 -1.024,0.391 -1.414,0c-0.391,-0.391 -0.391,-1.024 0,-1.414c0.153,-0.154 3.293,-3.293 3.293,-3.293c0,0 -3.139,-3.139 -3.293,-3.293c-0.391,-0.391 -0.391,-1.024 0,-1.414c0.391,-0.391 1.024,-0.391 1.414,0c0.154,0.153 3.293,3.293 3.293,3.293c0,0 3.139,-3.139 3.293,-3.293c0.391,-0.391 1.024,-0.391 1.414,0c0.391,0.391 0.391,1.024 0,1.414c-0.153,0.154 -3.293,3.293 -3.293,3.293z"></path></g></g>
                       </svg>
                     </button>
                   </li>
                 ))}
-              </ul>
               <button
                 onClick={handleSave}
-                className="mt-4 bg-green-800 px-4 py-2 rounded-md"
+                className="save-button"
               >
-                Save
+                {processingPdf ? 'Processing PDF' : 'Save'}
               </button>
+              </ul>
+              </div>
+
+
             </div>
           )}
         </div>
 
-        <div>
-          <div>
-            <h2 className="pb-4 text-xl">Chat Interface</h2>
-            {messages.length > 0 && (
-              <div className="border border-gray-600 rounded-lg p-4 mb-4">
-                {messages.map((message, index) => (
-                  <div key={index} className="bg-gray-800 rounded-lg p-2 mb-2">
-                    <span className="text-white">{message.question}</span>
-                    <span className="text-gray-400"> - {message.answer}</span>
-                  </div>
-                ))}
+        <div className="mt-6">
+          <h2 className="text-xl">Chat Interface</h2>
+          <div className="chat-container">
+            {messages.map((message, index) => (
+              <div key={index} className="message mb-4">
+                <span className="question">{message.question}</span>
+                <span className="answer"> - {message.answer}</span>
               </div>
-            )}
-            <div className="flex">
-              <input
-                type="text"
-                placeholder="Type your message"
-                className="text-black flex-1 py-2 px-4 rounded-l-lg"
-                onChange={(e) => setCurrentMessage(e.target.value)}
-                value={currentMessage}
-              />
-              <button
-                onClick={() => handleMessageSend(currentMessage)}
-                className={`bg-blue-600 text-white px-4 py-2 rounded-r-lg ${isSendButtonDisabled ? 'cursor-not-allowed opacity-50' : ''}`}
-                disabled={isSendButtonDisabled}
-              >
-                Send
-              </button>
-            </div>
+            ))}
+          </div>
+          <div className="flex items-center mt-4">
+            <input
+              type="text"
+              placeholder="Type your message"
+              className="chat-input"
+              onChange={(e) => setCurrentMessage(e.target.value)}
+              value={currentMessage}
+            />
+            <button
+              onClick={() => handleMessageSend(currentMessage)}
+              className={`send-button ${isSendButtonDisabled ? 'disabled' : ''}`}
+              disabled={isSendButtonDisabled}
+            >
+              Send
+            </button>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

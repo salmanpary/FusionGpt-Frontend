@@ -1,19 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 .main-container {
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0px;
+    background: #141E30;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
   }
 
   .welcome-container {
     align-self: flex-start;
     padding:40px;
-    margin-right: 20px;
+    margin-left: 90px;
   }
   
   .welcome-message {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: medium;
     color: #efe7e7;
   }
   
@@ -31,10 +41,10 @@
   .link-item {
     text-decoration: none;
     margin: 20px;
-    padding: 20px;
-    border: 2px solid #333;
+    padding: 20px 10px;
+    border: 1px solid #6f6f6f;
     border-radius: 10px;
-    width: 250px;
+    width: 290px;
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -42,19 +52,20 @@
     transition: all 0.3s ease;
   }
   .link-item:hover {
-    background-color: #f0f0f0;
-
+    background-color: #f0f0f027;
+    transform: scale(1.08);
   }
   
   .link-title {
     font-size: 20px;
     color: #ffffff;
     margin-bottom: 10px;
+    font-weight: 400;
   }
   
   .link-description {
-    font-size: 16px;
-    color: #666;
+    font-size: 14px;
+    color: #a4a4a4;
     text-align: center;
   }
   

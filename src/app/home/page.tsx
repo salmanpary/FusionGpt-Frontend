@@ -60,22 +60,22 @@ export default function Home() {
 
       <div className="links-container">
         <Link href="/textCompletion" className="link-item">
-          <h2 className="link-title">Text Completion Models -&gt;</h2>
+          <h2 className="link-title">Text Completion Models &gt;</h2>
           <p className="link-description">Generate text by giving a prompt</p>
         </Link>
 
         <Link href="/textSummary" className="link-item">
-          <h2 className="link-title">Text Summarization -&gt;</h2>
+          <h2 className="link-title">Text Summarization &gt;</h2>
           <p className="link-description">Condense text to key points efficiently</p>
         </Link>
 
         <Link href="/getimage" className="link-item">
-          <h2 className="link-title">Text to Image Models -&gt;</h2>
+          <h2 className="link-title">Text to Image Models &gt;</h2>
           <p className="link-description">Generate images from textual descriptions</p>
         </Link>
 
         <Link href="/ktuText" className="link-item">
-          <h2 className="link-title">KTU Based Model -&gt;</h2>
+          <h2 className="link-title">KTU Based Model &gt;</h2>
           <p className="link-description">Get KTU syllabus oriented answers</p>
         </Link>
 

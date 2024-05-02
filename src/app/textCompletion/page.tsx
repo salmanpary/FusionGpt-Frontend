@@ -23,7 +23,7 @@ const ChatInterface: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if(authToken===''){ //check if authToken is empty string
+    if(authToken===''){ 
       return;
     }else{
       fetchChatHistory(authToken);
